@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Deeb First App</title>
+	<link rel="stylesheet" href="/dojoroot/dijit/themes/claro/claro.css" />
+	<link rel="stylesheet" href="/dojoroot/dojox/grid/resources/grid.css" />
+	<link rel="stylesheet" href="/dojoroot/dojox/grid/resources/claroGrid.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="claro">
+	<div dojoType="dijit.layout.BorderContainer" design="header" gutters="false" liveSplitters="true" id="borderContainer">
+	    <div dojoType="dijit.layout.ContentPane" region="top" id="topBar">
+	        <h1>Dojo Contacts</h1>
+	        <div dojoType="dijit.MenuBar" id="navMenu">
+	            <div dojoType="dijit.PopupMenuBarItem">
+	                <span>File</span>
+	                <div dojoType="dijit.Menu" id="fileMenu">
+	                    <div dojoType="dijit.MenuItem" jsId="mnuNewContact">New Contact</div>
+	                    <div dojoType="dijit.MenuItem" jsId="mnuNewGroup">New Group</div>
+	                </div>
+	            </div>
+	            <div dojoType="dijit.PopupMenuBarItem">
+	                <span>Edit</span>
+	                <div dojoType="dijit.Menu" id="editMenu">
+	                    <div dojoType="dijit.MenuItem" jsId="mnuEditContact" disabled="true">Edit Contact</div>
+	                    <div dojoType="dijit.MenuItem" jsId="mnuMoveContact" disabled="true">Move Contact</div>
+	                    <div dojoType="dijit.MenuItem" jsId="mnuRenameGroup" disabled="true">Rename Group</div>
+	 
+	                    <div dojoType="dijit.MenuSeparator"></div>
+	                    <div dojoType="dijit.MenuItem" jsId="mnuDeleteContact" disabled="true">Delete Contact</div>
+	                    <div dojoType="dijit.MenuItem" jsId="mnuDeleteGroup" disabled="true">Delete Group</div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    <div dojoType="dijit.layout.BorderContainer" region="center" gutters="true" liveSplitters="true" id="mainSection">
+	        <div dojoType="dijit.layout.ContentPane" splitter="true" region="left" id="treeSection">
+	            <div dojoType="dojo.data.ItemFileWriteStore" jsId="groupStore" url="data/groups.php"></div>
+	            <div dojoType="dijit.tree.TreeStoreModel" jsId="groupsModel" childrenAttrs="groups" store="groupStore" query="{id:0}"></div>
+	            <div dojoType="dijit.Tree" id="groupsTree" jsId="groupsTree" model="groupsModel">
+	            	<div dojoType="dijit.Menu" targetNodeIds="groupsTree" style="display: none;">
+	            		<div dojoType="dijit.MenuItem" jsId="ctxMnuRenameGroup" disabled="true">Rename Group</div>
+	            		<div dojoType="dijit.MenuItem" jsId="ctxMnuDeleteGroup" disabled="true">Delete Group</div>
+	            	</div>
+	            </div>
+	        </div>
+	        <div dojoType="dijit.layout.BorderContainer" design="header" gutters="true" liveSplitters="true" id="mainContainer" region="center">
+	            <div dojoType="dijit.layout.ContentPane" region="top" splitter="true" id="gridSection">
+	                <span dojoType="dojo.data.ItemFileReadStore" jsId="contactStore" url="data/contacts.php"></span>
+	                <table dojoType="dojox.grid.DataGrid" id="contactsGrid" jsId="contactsGrid" columReordering="true" sortFields="['last_name','first_name']" store="contactStore" query="{first_name: '*'}" clientSort="true" selectionMode="single" rowHeight="25" noDataMessage="<span class='dojoxGridNoData'>No Contacts found in this group</span>">
+	                	<thead>
+	                		<tr>
+	                			<th field="last_name" width="200px">Last Name</th>
+	                			<th field="first_name" width="200px">First Name</th>
+	                			<th field="email_address" width="100%">E-Mail Address</th>
+	                		</tr>
+	                	</thead>
+	                	<script type="dojo/method" event="onRowContextMenu" args="e"></script>
+	                </table>
+	                <div dojoType="dijit.Menu" targetNodeIds="contactsGrid" id="gridMenu" style="display: none;">
+	            		<div dojoType="dijit.MenuItem" jsId="ctxMnuEditContact" disabled="true">Edit Contact</div>
+	            		<div dojoType="dijit.MenuItem" jsId="ctxMnuMoveContact" disabled="true">Move Contact</div>
+	            		<div dojoType="dijit.MenuItem" jsId="ctxMnuDeleteContact" disabled="true">Delete Contact</div>
+	            	</div>
+	            </div>
+	            <div dojoType="dijit.layout.ContentPane" id="contactView" jsId="contactView" region="center">
+	                <em>Select a contact to view above.</em>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+
+	<div dojoType="dijit.Dialog" id="newGroupDialog" jsId="newGroupDialog" title="Create New Group" draggable="false">
+		<div dojoType="dijit.form.Form" id="newGroupForm" jsId="newGroupForm" action="data/new_group.php" method="post">
+			<input type="hidden" name="new_group_ajax" id="new_group_ajax" value="0">
+			<label for="new_group_name">Group Name:</label>
+			<input type="text" name="new_group_name" id="new_group_name" required="true" dojoType="dijit.form.ValidationTextBox"/>
+			<button dojoType="dijit.form.Button" type="submit">Submit</button>
+			<button dojoType="dijit.form.Button" jsId="newGroupCancel" type="button">Cancel</button>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/dojoroot/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>
