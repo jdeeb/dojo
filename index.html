@@ -70,7 +70,7 @@
 	        </div>
 	    </div>
 	</div>
-
+	<!-- New Group Dialog -->
 	<div dojoType="dijit.Dialog" id="newGroupDialog" jsId="newGroupDialog" title="Create New Group" draggable="false">
 		<div dojoType="dijit.form.Form" id="newGroupForm" jsId="newGroupForm" action="data/new_group.php" method="post">
 			<input type="hidden" name="new_group_ajax" id="new_group_ajax" value="0">
@@ -80,7 +80,63 @@
 			<button dojoType="dijit.form.Button" jsId="newGroupCancel" type="button">Cancel</button>
 		</div>
 	</div>
-
+	<!-- End New Group Dialog -->
+	<!-- Edit Group Dialog -->
+	<div dojoType="dijit.Dialog" id="editGroupDialog" jsId="editGroupDialog" title="Rename Group" draggable="false">
+		<div dojoType="dijit.form.Form" id="editGroupForm" jsId="editGroupForm" action="data/edit_group.php" method="post">
+			<input type="hidden" name="edit_group_ajax" id="edit_group_ajax" value="0">
+			<input type="hidden" name="edit_group_id" id="edit_group_id">
+			<table cellpadding="4" cellspacing="4">
+				<tr>
+					<td><label for="edit_group_old">Old Group Name:</label></td>
+					<td><input type="text" name="edit_group_old" id="edit_group_old" disabled="true" dojoType="dijit.form.TextBox" /></td>
+				</tr>
+				<tr>
+					<td><label for="edit_group_name">New Group Name:</label></td>
+					<td><input type="text" name="edit_group_name" id="edit_group_name" required="true" dojoType="dijit.form.ValidationTextBox" style="margin-bottom: 6px" /></td>
+				</tr>
+				<tr colspan="2" align="center">
+					<td><button dojoType="dijit.form.Button" type="submit">Submit</button></td>
+					<td><button dojoType="dijit.form.Button" jsId="editGroupCancel" type="button">Cancel</button></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- Move Contact Dialog -->
+	<div dojoType="dijit.Dialog" id="moveContactDialog" jsId="moveContactDialog" title="Move Contact" draggable="false">
+		<div dojoType="dijit.form.Form" id="moveContactForm" jsId="moveContactForm" action="data/move_contact.php" method="post">
+			<input type="hidden" name="move_contact_ajax" id="move_contact_ajax" value="0">
+			<input type="hidden" name="move_contact_id" id="move_contact_id">
+			<table cellspacing="4" cellpadding="4">
+				<tr>
+					<td><label for="move_contact_name">Contact Name:</label></td>
+					<td><input type="text" name="move_contact_name" id="move_contact_name" disabled="true" dojoType="dijit.form.TextBox" /></td>
+				</tr>
+				<tr>
+					<td><label for="move_contact_old">Current Group:</label></td>
+					<td><input type="text" name="move_contact_old" id="move_contact_old" disabled="true" dojoType="dijit.form.TextBox" /></td>
+				</tr>
+				<tr>
+					<td><label for="move_contact_new">New Group:</label></td>
+					<td><input type="text" name="move_contact_new" id="move_contact_new" required="true" dojoType="dijit.form.FilteringSelect" store="groupStore" searchAttr="name" query="{type: 'node'}" style="margin-bottom: 6px" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button dojoType="dijit.form.Button" type="submit">Submit</button>
+						<button dojoType="dijit.form.Button" jsId="moveContactCancel" type="button">Cancel</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- Start OK Dialog -->
+	<div id="okDialog" jsId="okDialog" dojoType="dijit.Dialog" title="Title" draggable="false">
+    	<p id="okDialogMessage" style="margin-top: 5px">Message</p>
+    	<div align="center">
+    		<button dojoType="dijit.form.Button" jsId="okDialogOK" type="button">OK</button>
+    	</div>
+    </div>
+	<!-- End OK Dialog -->
 	<script type="text/javascript" src="/dojoroot/dojo/dojo.js" djConfig="parseOnLoad: true"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
